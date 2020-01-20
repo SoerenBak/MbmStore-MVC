@@ -1,0 +1,36 @@
+﻿@using MbmStore.Models;
+@model MbmStore.Models.MusicCD
+
+<div class="row">
+    <div class="col-md-3">
+        <img src="~/Content/Images/@Model.ImageUrl" alt="@Model.Title" />
+    </div>
+    <div class="col-md-7">
+        <div>
+            <p><span>Album: </span>@Model.Title @Model.ProductId</p>
+            <p><span>Artist: </span>@Model.Artist</p>
+            <p><span>Price: </span>@String.Format("{0:00.00}", Model.Price)</p> @*@String.Format("{0:0:00}",music.Price)*@
+            <p><span>Label: </span>@Model.Label (@Model.Released)</p>
+        </div>
+        <div class="tracks">
+            <p><span>Tracks:</span></p>
+            <ol>
+                @foreach (Track track in Model.Tracks)
+            {
+                    <li>@track.Title (@track.Composer) @track.Length</li>
+                }
+            </ol>
+            <p><span>Total playing time: </span>@Model.GetPlayingTime()</p>
+        </div>
+    </div>
+    
+    <div class="col-md-2">
+        @using (Html.BeginForm("AddToCart", "Cart"))
+        {
+            @Html.Hidden("ProductId", Model.ProductId)
+            @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+            <input type="submit" class="btn btn-success" value="Add to cart" />
+        }
+    </div>
+    
+</div>

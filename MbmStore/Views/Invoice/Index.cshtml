@@ -1,0 +1,79 @@
+﻿
+@using MbmStore.Models;
+@helper RenderInvoice(Invoice invoice)
+{
+    <tr>
+        <td>@invoice.Customer.Firstname @invoice.Customer.Lastname</td>
+        <td>
+            
+            @foreach (OrderItem item in invoice.OrderItems)
+            {
+                <p>@item.Product.Title (@item.Product.ToString().Substring(16))</p>
+            }
+            
+        </td>
+        <td>
+            @{decimal quantity = 0M;}
+            @foreach (OrderItem item in invoice.OrderItems)
+            {
+                <p>x @item.Quantity</p>
+                quantity += item.Quantity;
+            }
+            <strong>Total: </strong> @quantity
+        </td>
+        <td>
+            @{decimal price = 0M;}
+            @foreach (OrderItem item in invoice.OrderItems)
+            {
+                <p>@String.Format("{0:00.00}", item.Product.Price) x @item.Quantity</p>
+                price += item.Product.Price * item.Quantity;
+
+            }
+            <strong>Total: </strong>@String.Format("{0:00.00}", price) DKK
+
+        </td>
+    </tr>    
+
+    
+       
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+   
+</head>
+<body>
+    <div class="wrap"> 
+        @using (Html.BeginForm())
+        {
+            @Html.DropDownList("CustomerId", "Select Customer")
+            <button type="submit">Show invoices</button>
+        }
+        <h2>Invoices</h2>
+        <div class="table-wrap">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Customer:</th>
+                        <th>Product:</th>
+                        <th>Quantity:</th>
+                        <th>Price:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Invoice invoice in ViewBag.Invoices)
+                    {
+                        @RenderInvoice(invoice);
+                    }
+                </tbody>
+                
+            </table>
+        </div>
+        
+        
+    </div>
+</body>
+</html>

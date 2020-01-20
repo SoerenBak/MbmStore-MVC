@@ -1,0 +1,41 @@
+﻿
+
+
+@using MbmStore.Models;
+@helper RenderCustomer (Customer customer)
+{
+    <div>
+        <h3>First name: @customer.Firstname</h3>
+        <p><span>Last Name: </span>@customer.Lastname</p>
+        <p><span>Address: </span>@customer.Address</p>
+        <p><span>Zip code: </span>@customer.Zip</p>
+        <p><span>City: </span>@customer.City</p>
+        <p><span>Phone numbers: </span>@string.Join(", ", customer.PhoneNumbers)</p>
+        <p><span>Age: </span>@customer.Age</p>
+        <p><span>Birthdate: </span>@customer.BirthDate.ToShortDateString()</p>
+        <br />
+    </div>
+    
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+   
+</head>
+<body>
+    <div class="wrap"> 
+        <h2>Customers</h2>
+        <div>
+            @foreach (Customer customer in ViewBag.customers)
+            {
+                @RenderCustomer(customer);
+            }
+        </div>
+        
+    </div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MbmStore</title>
+</head>
+<body>
+    <h2>Index</h2>
+    <ul>
+        <li>
+            @Html.ActionLink("The Catalogue", "Index", "Catalogue")
+        </li>
+        <li>
+            @Html.ActionLink("The Customers", "Index", "Customer")
+        </li>
+        <li>
+            @Html.ActionLink("The Invoices", "Index", "Invoice")
+        </li>
+    </ul>
+
+</body>
+</html>
+
+
